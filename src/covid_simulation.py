@@ -1,4 +1,5 @@
 # Version: Python 3.10.0
+# Authors: Tillmann Faust, Fakhr E Alam Khan
 
 import random
 import heapq
@@ -16,7 +17,8 @@ from datetime import datetime
 # class: Event ----------------------------------------------------------------
 class Event:
     """
-    Base event type
+    Base event type. Provides compare functionality based on an events timestamp,
+     a basic logging method and an empty processEvent-function 
     Parameters: 
         car_id: ID of the event's car
         timestamp: The simulated time in seconds when the event took place
@@ -43,7 +45,6 @@ class Event:
         return self._timestamp >= other._timestamp
     def log_self(self):
         self._simulation.log(self._timestamp,self._car_id,self._person_count,self.TYPE,self._simulation.car_count())
-
     def processEvent(self):
         pass
 
