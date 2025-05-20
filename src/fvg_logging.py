@@ -109,4 +109,3 @@ class JsonLogger (AbstractLogger):
             file.seek(0)
             json.dump(data, file, ensure_ascii=False, indent=4)
             file.truncate()
-            
