@@ -1,3 +1,5 @@
+# Version: Python 3.10.0
+
 import csv
 import json
 import os
@@ -8,8 +10,17 @@ from abc import ABC, abstractmethod
 # =============================================================================
 # Logger
 # =============================================================================
-# Super-class Logger ----------------------------------------------------------
+# Abstract class Logger -------------------------------------------------------
 class AbstractLogger (ABC):
+    """
+    Base Logging class. Defines the log-file-creation mechanism and a log method
+     that has to be implemented in any sub-class
+
+    Parameters:
+        filename:  name of the log file.
+        path:      path where the log-file is to be created relative paths will always 
+                    be resolves relative to the current working directory
+    """
     FILETYPE = None
     def __init__(self, filename: str = None, path: str = None):
         if filename is None:
@@ -34,6 +45,11 @@ class AbstractLogger (ABC):
 
 # Plaintext Logger ------------------------------------------------------------
 class BasicLogger (AbstractLogger):
+    """
+    Plaintext logger. Files will be created as [path]/[filename].log
+
+    Parameters: see AbtractLogger
+    """
     FILETYPE = "log"
     def log(self, message: str):
         with open(self.filepath, mode='a', encoding='utf-8') as f:
@@ -41,6 +57,15 @@ class BasicLogger (AbstractLogger):
 
 # CsvLogger -------------------------------------------------------------------
 class CsvLogger (AbstractLogger):
+    """
+    Writes log-data into a CSV file. Files will be created as [path]/[filename].csv
+
+    Parameters:
+        *args:      list of table-headers
+        filename:   name of the log file
+        path:       path where the log-file is to be created relative paths will always 
+                     be resolves relative to the current working directory
+    """
     FILETYPE = "csv"
     def __init__(self, *args: str, filename: str = None, path: str = None):
         for i, arg in enumerate(args):
@@ -63,6 +88,12 @@ class CsvLogger (AbstractLogger):
 
 # JsonLogger ------------------------------------------------------------------
 class JsonLogger (AbstractLogger):
+    """
+    Writes log-data into a basic JSON file. Files will be created as 
+    [path]/[filename].json
+    
+    Parameters: see AbstractLogger
+    """
     FILETYPE = "json"
     def __init__(self, filename: str = None, path: str = None):
         super().__init__(filename,path)

@@ -1,8 +1,13 @@
+# Version: Python 3.10.0
+
 import os
 import sys
 import json
 import csv
 from matplotlib import pyplot as plt
+"""
+Usage: Usage: py analyzing.py [path/to]/simulation_log_[timestamp]
+"""
 
 def load_data(filepath: str):
     """
@@ -119,10 +124,9 @@ def plot_cars_in_system_over_time(data):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python read_data.py <path/to/filename>")
+        print("Usage: py analyzing.py [path/to]/simulation_log_[timestamp]")
         sys.exit(1)
     filepath = sys.argv[1]
-
     try:
         meta_data, data = load_data(filepath)
         #print(data)
